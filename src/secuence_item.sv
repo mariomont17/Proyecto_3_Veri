@@ -201,7 +201,6 @@ class secuence_test_agent #(parameter filas = 4; parameter columnas = 4, paramet
   endfunction
   
   virtual task body();
-    
     //Transaccion aleatoria (Se hacen las transacciones dependiendo del numero de transacciones seteado)
     secuence_item_test_agent m_item = secuence_item_test_agent::type_id::create("m_item");
     start_item(m_item);

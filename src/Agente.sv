@@ -1,4 +1,4 @@
-class Agente extends uvm_agent;
+class agent extends uvm_agent;
   `uvm_component_utils(Agente)
   function new (string name = "Agente", uvm_component parent=null);
     super.new(name,parent);

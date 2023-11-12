@@ -23,7 +23,7 @@ class driver#(parameter ancho =40, parameter profundidad = 4) extends uvm_driver
     virtual task run_phase(uvm_phase phase);
             super.run_phase(phase);
             forever begin 
-                seq_item m_item;
+                secuence_item_test_agent m_item;
                 `uvm_info("DRV", $sformatf("Espera por una transaccion: "), UVM_LOW)
                 seq_item_port.get_next_item(m_item);
                 drive_item(m_item);
@@ -31,7 +31,7 @@ class driver#(parameter ancho =40, parameter profundidad = 4) extends uvm_driver
             end
     endtask
 
-    virtual task drive_item(seq_item m_item);
+    virtual task drive_item(secuence_item_test_agent m_item);
         @(posedge vif.clk);
 
         espera = 0;
