@@ -7,7 +7,7 @@ class test extends uvm_test;
 
     env e0;
 
-    virtual dut_if #(.ancho(`ancho)) vif;
+  virtual dut_if _if;
 
     virtual function void build_phase (uvm_phase phase);
         super.build_phase (phase);
@@ -16,10 +16,10 @@ class test extends uvm_test;
 
         //Parte para conectar la interface
     
-        if (!uvm_config_db#(virtual dut_if #(.ancho(`ancho)))::get(this,"", "dut_if", vif))
-            `uvm_fatal ("TEST", "Did not get vif")
+      if (!uvm_config_db#(virtual dut_if)::get(this,"", "dut_if", _if))
+        `uvm_fatal ("TEST", "Did not get _if")
 
-        uvm_config_db#(virtual dut_if)::set(this,"e0.a0.*","dut_if", vif);
+        uvm_config_db#(virtual dut_if)::set(this,"e0.a0.*","dut_if", _if);
 
     
     endfunction 
@@ -38,10 +38,10 @@ class test extends uvm_test;
 
     
     virtual task apply_reset();
-        vif.reset <= 1;
-        repeat(5) @ (posedge vif.clk);
-        vif.reset <= 0;
-        repeat(10) @ (posedge vif.clk);
+        _if.reset <= 1;
+      repeat(5) @ (posedge _if.clk);
+        _if.reset <= 0;
+      repeat(10) @ (posedge _if.clk);
         
     endtask
     
