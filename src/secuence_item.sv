@@ -3,21 +3,21 @@ typedef enum {trans_aleatoria, trans_especifica, brdcst, sec_trans_aleatorias, t
 typedef bit [10:0] cola_de_rutas[$];
 
 //Se declara el item que se enviara al secuenciador
-class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item;
+class secuence_item_test_agent extends uvm_sequence_item;
   
-  //Declaro las variables del objeto
+  //Declaro las variables del ob
   
   // se definen primero los bits de contenido del paquete
-  bit 	 [ancho-1:0] paquete; // paquete completo que entra al DUT
+  bit 	 [`ancho-1:0] paquete; // paquete completo que entra al DUT
 
   // METADATOS
   bit 	 [7:0] nxt_jump; // 8 bits más significativos del paquete, NXT JUMP
   rand bit [3:0] row; // 4 bits para identificador de fila de destino
-  rand bit [3:0] colum; // 4 bits para identificador de columna de destino
+  rand bit [3:0] column; // 4 bits para identificador de columna de destino
   rand bit mode; // 1 bit de modo
-
   // MENSAJE
-  rand bit [ancho-18:0] payload; // bits restantes del paquete para payload
+
+  rand bit [`ancho-18:0] payload; // bits restantes del paquete para payload
   bit [7:0] src; // router fuente 
   bit [7:0] id; // router destino
 
@@ -34,7 +34,7 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
   
   constraint row_colum { // constraint para limitar el tamaño de las filas y columnas
         row >= 0; row < 6;  
-        colum >= 0; colum < 6;
+        column >= 0; column < 6;
     }
 
   constraint c_term_envio{ // constraint para determinar por donde enviar el paquete
@@ -47,7 +47,7 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
   }
 
   constraint limites {
-    {row,colum} dist {  8'h01:/6,
+    {row,column} dist {  8'h01:/6,
                       8'h02:/6,
                       8'h03:/6,
                       8'h04:/6,
@@ -67,7 +67,7 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
   }
 
   //Registro en la fabrica con todas las variables para poder usar el print
-  `uvm_object_utils_begin(secuence_test_agent)
+  `uvm_object_utils_begin(secuence_item_test_agent)
     `uvm_field_int (paquete, UVM_DEFAULT)
     `uvm_field_int (nxt_jump, UVM_DEFAULT)
     `uvm_field_int (row, UVM_DEFAULT)
@@ -76,13 +76,13 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
     `uvm_field_int (payload, UVM_DEFAULT)
     `uvm_field_int (src, UVM_DEFAULT)
     `uvm_field_int (id, UVM_DEFAULT)
-    `uvm_field_int (retado_max, UVM_DEFAULT)
+  	`uvm_field_int (retardo_max, UVM_DEFAULT)
     `uvm_field_int (retardo, UVM_DEFAULT)
     `uvm_field_int (term_envio, UVM_DEFAULT)
     `uvm_field_int (term_recibido, UVM_DEFAULT)
     `uvm_field_int (tiempo_envio, UVM_DEFAULT)
     `uvm_field_int (tiempo_recibido, UVM_DEFAULT)
-    `uvm_field_int (cola_rutas, UVM_DEFAULT)
+    //`uvm_field_int (cola_rutas, UVM_DEFAULT)
   `uvm_object_utils_end 
   
   function new(string name = "secuence_item_test_agent");
@@ -92,7 +92,7 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
   //Agrego las demas funciones que actuan sobre los mismos valores 
   
   function void term_dest(); //Pasa de un id en fila y columna a un numero entero
-    case({row,colum})
+    case({row,column})
       8'h01: this.term_recibido = 0;
       8'h02: this.term_recibido = 1;
       8'h03: this.term_recibido = 2;
@@ -114,22 +114,22 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
 
   function void term_a_enviar(int term_a_enviar); //Pasa de un numero entero de envio a un id en fila y columna
     case (term_a_enviar)
-      0: begin this.row = 0; this.colum = 1; end
-      1: begin this.row = 0; this.colum = 2; end
-      2: begin this.row = 0; this.colum = 3; end
-      3: begin this.row = 0; this.colum = 4; end
-      4: begin this.row = 1; this.colum = 0; end
-      5: begin this.row = 2; this.colum = 0; end
-      6: begin this.row = 3; this.colum = 0; end
-      7: begin this.row = 4; this.colum = 0; end
-      8: begin this.row = 5; this.colum = 1; end
-      9: begin this.row = 5; this.colum = 2; end
-      10: begin this.row = 5; this.colum = 3; end
-      11: begin this.row = 5; this.colum = 4; end
-      12: begin this.row = 1; this.colum = 5; end
-      13: begin this.row = 2; this.colum = 5; end
-      14: begin this.row = 3; this.colum = 5; end
-      15: begin this.row = 4; this.colum = 5; end
+      0: begin this.row = 0; this.column = 1; end
+      1: begin this.row = 0; this.column = 2; end
+      2: begin this.row = 0; this.column = 3; end
+      3: begin this.row = 0; this.column = 4; end
+      4: begin this.row = 1; this.column = 0; end
+      5: begin this.row = 2; this.column = 0; end
+      6: begin this.row = 3; this.column = 0; end
+      7: begin this.row = 4; this.column = 0; end
+      8: begin this.row = 5; this.column = 1; end
+      9: begin this.row = 5; this.column = 2; end
+      10: begin this.row = 5; this.column = 3; end
+      11: begin this.row = 5; this.column = 4; end
+      12: begin this.row = 1; this.column = 5; end
+      13: begin this.row = 2; this.column = 5; end
+      14: begin this.row = 3; this.column = 5; end
+      15: begin this.row = 4; this.column = 5; end
     endcase
   endfunction
 
@@ -156,24 +156,24 @@ class secuence_item_test_agent #(parameter ancho = 40) extends uvm_secuence_item
   endfunction
 
   function void BuildPackage(); // funcion para concatenar el paquete
-    this.paquete = {this.nxt_jump,this.row,this.colum,this.mode,this.payload};
+    this.paquete = {this.nxt_jump,this.row,this.column,this.mode,this.payload};
   endfunction
 
   function void UnPackage();//Deshace el paquete
-    this.nxt_jump = this.paquete[ancho-1:ancho-8];
-    this.row = this.paquete[ancho-9:ancho-12];
-    this.colum = this.paquete[ancho-13:ancho-16];
-    this.mode = this.paquete[ancho-17];
-    this.payload = this.paquete[ancho-18:0];
+    this.nxt_jump = this.paquete[`ancho-1:`ancho-8];
+    this.row = this.paquete[`ancho-9:`ancho-12];
+    this.column = this.paquete[`ancho-13:`ancho-16];
+    this.mode = this.paquete[`ancho-17];
+    this.payload = this.paquete[`ancho-18:0];
   endfunction
   
 endclass
 
 
-class secuence_test_agent #(parameter filas = 4; parameter columnas = 4, parameter ancho = 40, parameter profundidad = 4, parameter broadcast ={8{1'b1}}) extends uvm_secuence;
-  int num_trasacciones = 15; 		 //Valores establecidos por default
+class secuence_test_agent extends uvm_sequence;
+  int num_transacciones = 15; 		 //Valores establecidos por default
   int retardo = 10;					 //Retardo maximo pord defecto de 10 ciclos de reloj 
-  int trans_x_terminal = profundidad;//Transacciones por terminal por defecto igua a la profundidad de la fifos
+  int trans_x_terminal = `profundidad;//Transacciones por terminal por defecto igua a la profundidad de la fifos
   
   
   //Para el caso especifico
@@ -181,7 +181,7 @@ class secuence_test_agent #(parameter filas = 4; parameter columnas = 4, paramet
   bit [3:0] row_espec;				//Fila especifica
   bit [3:0] column_espec;			//Columna epecifica
   bit mode_espec;					//Modo especifico
-  bit [ancho - 17:0] pyld_espec;	//Payload especifico
+  bit [`ancho - 17:0] pyld_espec;	//Payload especifico
   int term_envio_espec; 			//terminal desde la que se envia el paquete especifico
   
   `uvm_object_utils_begin(secuence_test_agent);
@@ -202,10 +202,10 @@ class secuence_test_agent #(parameter filas = 4; parameter columnas = 4, paramet
   
   virtual task body();
     //Transaccion aleatoria (Se hacen las transacciones dependiendo del numero de transacciones seteado)
-    secuence_item_test_agent m_item = secuence_item_test_agent::type_id::create("m_item");
+    secuence_item_test_agent m_item = secuence_item_test_agent#()::type_id::create("m_item");
     start_item(m_item);
     m_item.randomize();
-    m_item.retardo_max = retardo_max;
+    m_item.retardo_max = retardo;
     m_item.term_envio = term_envio_espec;
     m_item.GetSrcAndId();
     m_item.BuildPackage();
