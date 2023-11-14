@@ -5,19 +5,33 @@ class agent extends uvm_agent;
     super.new(name,parent);
   endfunction
   
-  driver d0;  //Como es solo prueba se hace un solo 
   
-  uvm_sequencer #(secuence_item_test_agent) s0;
+  driver d [16] ;  //Arreglo de drivers (Modificar el driver para que unicamente tome el que le corresponde)
+  monitor m [16] ;  //Arreglo de monitores 
+  uvm_sequencer #(secuence_item_test_agent) s[16]; //16 secuenciadores distintos
   
   virtual function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    s0 = uvm_sequencer#(secuence_item_test_agent)::type_id::create("s0",this);
-    d0 = driver::type_id::create("d0",this);
+    
+    for (int i = 0; i < 16; i++)begin  //Inicializacion de los secuenciadores 
+      s[i] = uvm_sequencer#(secuence_item_test_agent)::type_id::create($sformatf("s%0d", i) ,this);
+    end 
+    
+    for (int i = 0; i < 16; i++)begin //Inicializacion de los drivers y monitores 
+      d[i] = driver::type_id::create($sformatf("d%0d",i),this); //Inicializo los 16 drivers 
+      d[i].id = i; //Se establece el id interno de cada driver 
+      
+      m[i] = monitor::type_id::create($sformatf("m%0d",i),this); //Inicializo los 16 drivers 
+      m[i].id = i; //Se establece el id interno de cada driver 
+    end 
   endfunction
   
   virtual function void connect_phase (uvm_phase phase);
     super.connect_phase(phase);
-    d0.seq_item_port.connect(s0.seq_item_export);
+    
+    for (int i = 0; i < 16; i++)begin
+      d[i].seq_item_port.connect(s[i].seq_item_export); //Conecto cada uno con el secuenciador que corresponde 
+    end 
   endfunction
   
 endclass
