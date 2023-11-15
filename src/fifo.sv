@@ -722,4 +722,8 @@ module mem_latch #(parameter bits= 32, parameter entradas = 10)(
     end
   endgenerate
 
+<<<<<<< HEAD
 endmodule
+=======
+endmodule
+>>>>>>> 4370ecaea4c52acf2d2b3f91117eda0009c0de97

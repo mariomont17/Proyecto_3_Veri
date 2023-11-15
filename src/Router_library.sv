@@ -870,4 +870,8 @@ module prll_bus_gnrtr_cn_rbtr #(parameter pck_sz = 40, parameter num_ntrfs=4, pa
   .pop_i(pop_i),
   .data_in_i(data_in_i)
 );
+<<<<<<< HEAD
 endmodule 
+=======
+endmodule 
+>>>>>>> 4370ecaea4c52acf2d2b3f91117eda0009c0de97

@@ -1200,4 +1200,9 @@ module prll_bs_gnrtr_n_rbtr_fifo #(parameter buses = 1,parameter bits = 1,parame
     .D_pop(D_out_int),
     .D_push(D_in_int)
   );
+<<<<<<< HEAD
 endmodule
+=======
+endmodule
+
+>>>>>>> 4370ecaea4c52acf2d2b3f91117eda0009c0de97
