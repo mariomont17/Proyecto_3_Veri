@@ -9,7 +9,7 @@
 `include "fifo.sv"
 `include "Library.sv"
 `define LIB 
-import uvm_pkg::*;
+`include "uvm_pkg.sv"
 `include "uvm_macros.svh"
 `include "Router_library.sv"
 `include "Interface.sv"
