@@ -6,11 +6,12 @@
 `define profundidad 4
 `define broadcast {8{1'b1}}
 `define FIFOS
-`include "fifo.sv"
-`include "Library.sv"
 `define LIB 
 `include "uvm_pkg.sv"
 `include "uvm_macros.svh"
+
+`include "fifo.sv"
+`include "Library.sv"
 `include "Router_library.sv"
 `include "Interface.sv"
 `include "sequence_item.sv"
