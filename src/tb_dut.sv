@@ -1,7 +1,5 @@
-`timescale 1ns/1ps
-
-`include "uvm_macros.svh"
 import uvm_pkg::*;
+`include "uvm_macros.svh"
 `define ancho 40
 `define filas 4
 `define columnas 4
