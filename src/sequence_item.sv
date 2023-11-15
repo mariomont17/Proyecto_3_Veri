@@ -186,6 +186,226 @@ class secuence_item_test_agent extends uvm_sequence_item;
     this.mode = this.paquete[`ancho-17];
     this.payload = this.paquete[`ancho-18:0];
   endfunction
+
+  function bit[10:0] Ruta(bit [3:0] id_r=0, bit[3:0] id_c=0, bit[`ancho-1:0] Data_in=0);
+      bit [10:0] ruta = 0;  
+      bit [1:0] id_term = 0;
+      bit [3:0] id_row = 0;
+      bit [3:0] id_column = 0;
+      bit fin = 0;
+
+    
+      if((id_r != `filas)&(id_r != 1)&(id_c != `columnas)&(id_c != 1)) begin // si se trata de un router que no está en el marco limítrofe
+        if(Data_in[`ancho-17]) begin //si el modo es 1 entonces rutea primero fila
+          if(Data_in[`ancho-9:`ancho-12] < id_r) begin // si la fila es mayor que objetivo, se resta 1 en fila y mantiene columna 
+            id_term = 2'd0;
+            id_row = id_r-1;
+            id_column = id_c;
+          end
+          if(Data_in[`ancho-9: `ancho-12] > id_r) begin // si la fila es mayor, se suma 1 en fila y sale por terminal 2
+            id_term = 2'd2;
+            id_row = id_r+1;
+            id_column = id_c;
+          end
+          if(Data_in[`ancho-9: `ancho-12] == id_r) begin // si esta en la misma fila del objetivo, no se cambia fila y se enruta columna 
+            if(Data_in[`ancho-13: `ancho-16] < id_c) begin // si la columna actual es mayor, se resta 1 en columna y sale por term 3
+              id_term = 2'd3;
+              id_row = id_r;
+              id_column = id_c-1;
+            end
+            if(Data_in[`ancho-13: `ancho-16] > id_c) begin // si la columna actual es mayor, se suma 1 en columna y sale por term 1
+              id_term = 2'd1;
+              id_row = id_r;
+              id_column = id_c+1;
+            end
+            if(Data_in[`ancho-13: `ancho-16]== id_c) begin // si la columna actual es igual, se pone en alto el bit de fin
+              fin = 1;
+            end
+          end
+        end else begin // si el modo es 0 rutea primero columna
+          if(Data_in[`ancho-13: `ancho-16] < id_c) begin 
+            id_term = 2'd3;
+            id_row = id_r;
+            id_column = id_c-1;
+          end
+          if(Data_in[`ancho-13: `ancho-16] > id_c) begin
+            id_term = 2'd1;
+            id_row = id_r;
+            id_column = id_c+1;
+          end
+          if(Data_in[`ancho-13: `ancho-16] == id_c) begin
+            if(Data_in[`ancho-9: `ancho-12] < id_r) begin
+              id_term = 2'd0;
+              id_row = id_r-1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] > id_r) begin
+              id_term = 2'd2;
+              id_row = id_r+1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] == id_r) begin
+              fin = 1;
+            end
+          end
+        end
+      end else begin // si se trata de un router que está en el marco limítrofe
+        if(((Data_in[`ancho-9:`ancho-12] < id_r)&(id_r == 1))| 
+          ((Data_in[`ancho-9:`ancho-12] > id_r)&(id_r == `filas))| 
+          ((Data_in[`ancho-13:`ancho-16] < id_c)&(id_c == 1))| 
+          ((Data_in[`ancho-13:`ancho-16] > id_c)&(id_c == `columnas))) begin // si es un caso de salida del mesh
+
+          if((Data_in[`ancho-9:`ancho-12] < id_r)&(id_r == 1)) begin // si está en el borde superior y la fila es 1
+            if(Data_in[`ancho-13: `ancho-16] == id_c) begin // si está en la columna correcta
+              id_term = 2'd0;
+              id_row = id_r-1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-13: `ancho-16] < id_c)begin // si está en una columna mayor
+              id_term = 2'd3;
+              id_row = id_r;
+              id_column = id_c-1;
+            end
+            if(Data_in[`ancho-13: `ancho-16] > id_c)begin // si está en una columna menor
+              id_term = 2'd1;
+              id_row = id_r;
+              id_column = id_c+1;
+            end
+          end
+          if((Data_in[`ancho-9:`ancho-12] > id_r)&(id_r == `filas)) begin // si está en el borde inferior y la fila es 4
+            if(Data_in[`ancho-13: `ancho-16] == id_c) begin // si está en la columna correcta
+              id_term = 2'd2;
+              id_row = id_r+1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-13: `ancho-16] < id_c)begin // si está en una columna mayor
+              id_term = 2'd3;
+              id_row = id_r;
+              id_column = id_c-1;
+            end
+            if(Data_in[`ancho-13: `ancho-16] > id_c)begin // si está en una columna menor
+              id_term = 2'd1;
+              id_row = id_r;
+              id_column = id_c+1;
+            end
+          end
+          if((Data_in[`ancho-13:`ancho-16] < id_c)&(id_c == 1)) begin // si está en el borde izquierdo y la columna es 1
+            if(Data_in[`ancho-9: `ancho-12] == id_r) begin // si está en la fila correcta
+              id_term = 2'd3;
+              id_row = id_r;
+              id_column = id_c-1;
+            end
+            if(Data_in[`ancho-9: `ancho-12] < id_r)begin // si está en una fila mayor
+              id_term = 2'd0;
+              id_row = id_r-1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] > id_r)begin // si está en una fila menor
+              id_term = 2'd2;
+              id_row = id_r+1;
+              id_column = id_c;
+            end
+          end
+          if((Data_in[`ancho-13:`ancho-16] > id_c)&(id_c == `columnas)) begin // si está en el borde derecho y la columna es 4
+            if(Data_in[`ancho-9: `ancho-12] == id_r) begin // si está en la fila correcta
+              id_term = 2'd1;
+              id_row = id_r;
+              id_column = id_c+1;
+            end
+            if(Data_in[`ancho-9: `ancho-12] < id_r)begin // si está en una fila mayor
+              id_term = 2'd0;
+              id_row = id_r-1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] > id_r)begin // si está en una fila menor
+              id_term = 2'd2;
+              id_row = id_r+1;
+              id_column = id_c;
+            end
+          end
+        end else begin // si no es un caso de salida
+          if(Data_in[`ancho-17]) begin //si el modo es 1 entonces rutea primero fila
+            if(Data_in[`ancho-9:`ancho-12] < id_r) begin
+              id_term = 2'd0;
+              id_row = id_r-1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] > id_r) begin
+              id_term = 2'd2;
+              id_row = id_r+1;
+              id_column = id_c;
+            end
+            if(Data_in[`ancho-9: `ancho-12] == id_r) begin
+              if(Data_in[`ancho-13: `ancho-16] < id_c) begin
+                id_term = 2'd3;
+                id_row = id_r;
+                id_column = id_c-1;
+              end
+              if(Data_in[`ancho-13: `ancho-16] > id_c) begin
+                id_term = 2'd1;
+                id_row = id_r;
+                id_column = id_c+1;
+              end
+              if(Data_in[`ancho-13: `ancho-16]== id_c) begin
+                fin = 1;
+              end
+            end
+          end else begin // si el modo es 0 rutea primero columna
+            if(Data_in[`ancho-13: `ancho-16] < id_c) begin
+              id_term = 2'd3;
+              id_row = id_r;
+              id_column = id_c-1;
+            end
+            if(Data_in[`ancho-13: `ancho-16] > id_c) begin
+              id_term = 2'd1;
+              id_row = id_r;
+              id_column = id_c+1;
+            end
+            if(Data_in[`ancho-13: `ancho-16] == id_c) begin
+              if(Data_in[`ancho-9: `ancho-12] < id_r) begin
+                id_term = 2'd0;
+                id_row = id_r-1;
+                id_column = id_c;
+              end
+              if(Data_in[`ancho-9: `ancho-12] > id_r) begin
+                id_term = 2'd2;
+                id_row = id_r+1;
+                id_column = id_c;
+              end
+              if(Data_in[`ancho-9: `ancho-12] == id_r) begin
+                fin = 1;
+              end
+            end
+          end
+        end
+      end   
+      ruta = {id_row,id_column,id_term}; //Devuelve el id del router y de la terminal 
+      return ruta;
+    endfunction
+
+    //Esta funcion se encarga de devolver un queue con toda la ruta que debe seguir el paquete
+    function cola_de_rutas ObtenerRuta(bit[`ancho-1:0] dato=0, bit [7:0] src = 0);
+      cola_de_rutas cola_rutas; //Declara el queue
+      bit [10:0] ruta = 0;
+      bit [7:0] id; // router destino
+
+      ruta[9:2] = src;
+      cola_rutas.push_back(ruta);
+
+      for(int i=0; i<7; i++)begin
+        ruta = Ruta(src[7:4], src[3:0], dato); //Obtiene el siguiente pedazo de la ruta con la funcion ruta
+        src = ruta[9:2];
+
+        if (src != dato[`ancho-9:`ancho-16]) begin //Si la fuente es diferente al id de destino
+          cola_rutas.push_back(ruta); //Agrega el camino al queue 
+
+        end else begin //Si no rompe el ciclo
+           break;
+        end
+
+      end
+      return cola_rutas;
+    endfunction
   
 endclass
 

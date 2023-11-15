@@ -51,6 +51,7 @@ class secuence_test_agent extends uvm_sequence;
             m_item.GetSrcAndId();
             m_item.BuildPackage();
             m_item.term_dest();
+            m_item.cola_rutas = m_item.ObtenerRuta(m_item.paquete, m_item.id);
             //`uvm_info("SEQUENCER", "Transaccion especifica creada", UVM_LOW);
             //m_item.print(); //Hora de probarlo 
             finish_item(m_item);
@@ -68,6 +69,7 @@ class secuence_test_agent extends uvm_sequence;
                     m_item.GetSrcAndId(); //Genera el id source y de router que enviara el dato
                     m_item.BuildPackage(); //Une el paquete
                     m_item.term_dest(); //Obtiene la terminal de destino
+                    m_item.cola_rutas = m_item.ObtenerRuta(m_item.paquete, m_item.id);
                     //m_item.print();
                     finish_item(m_item);
                     
@@ -90,7 +92,7 @@ class secuence_test_agent extends uvm_sequence;
                     m_item.GetSrcAndId(); //Se obtien el id del source y el router que enviara el dato
                     m_item.BuildPackage(); //Une el paquete 
                     m_item.term_dest(); //Obtiene la terminal de destino
-                    
+                    m_item.cola_rutas = m_item.ObtenerRuta(m_item.paquete, m_item.id);
                     //m_item.print();
                     finish_item(m_item);
                     
@@ -113,7 +115,7 @@ class secuence_test_agent extends uvm_sequence;
                     m_item.GetSrcAndId(); //Se obtiene el id source y del router desde donde se enviara el dato
                     m_item.BuildPackage(); //Une el paquete 
                     m_item.term_dest(); //Determina el destino del paquete.
-                
+                	m_item.cola_rutas = m_item.ObtenerRuta(m_item.paquete, m_item.id);
                     //m_item.print();
                     finish_item(m_item);
                     
