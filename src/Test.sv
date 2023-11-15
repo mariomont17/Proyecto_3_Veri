@@ -6,7 +6,8 @@ class test extends uvm_test;
     endfunction
 
     env e0;
-
+  	secuence_test_agent seq;
+  
   	virtual dut_if _if;
 
     virtual function void build_phase (uvm_phase phase);
@@ -21,33 +22,45 @@ class test extends uvm_test;
 		
         //Conecto la interfaz con el driver y el monitor 
         for (int i = 0; i < 16 ; i++)begin
-          uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.d%0d",i),"dut_if", _if);
-          uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.m%0d",i),"dut_if", _if);
+          uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.d[%0d]",i),"dut_if", _if);
+          uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.m[%0d]",i),"dut_if", _if);
         end
 
     
     endfunction 
 
     virtual task run_phase (uvm_phase phase);
-      secuence_test_agent seq = secuence_test_agent::type_id::create("seq");
-      //Levanta la mano y hasta que no se baje no termina la simulacion
-      phase.raise_objection(this);
-      apply_reset();
       
+      //Levanta la mano y hasta que no se baje no termina la simulacion
+      
+      phase.raise_objection(this); 
+      
+      seq = secuence_test_agent::type_id::create("seq"); // primera secuencia - TRANSACCION ESPECIFICA
+      seq.instruccion = trans_especifica;
+      seq.term_envio_espec = 3;
+      seq.retardo_espec = 4;     //Retardo especifico
+      seq.row_espec = 5;         //Fila especifica
+      seq.column_espec = 4;       //Columna especifica
+      seq.mode_espec = 1;        //Modo especifico
+      seq.pyld_espec = 8'haa;    //Payload especifico
       for (int i = 0; i < 16 ; i++) begin
         seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
       end 
+	
+      // PONER LAS OTRAS SECUENCIAS
+      
+      #1000
+      
+      seq = secuence_test_agent::type_id::create("seq"); // primera secuencia - TRANSACCION ESPECIFICA
+      seq.instruccion = trans_aleat_x_terminal;
+      for (int i = 0; i < 16 ; i++) begin
+        seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
+      end
       
       phase.drop_objection(this);  //Baja la mano para terminar la simulacion
     endtask
 
     
-    virtual task apply_reset();
-        _if.reset <= 1;
-      repeat(5) @ (posedge _if.clk);
-        _if.reset <= 0;
-      repeat(10) @ (posedge _if.clk);
-        
-    endtask
+    
     
 endclass

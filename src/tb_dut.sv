@@ -11,7 +11,8 @@
 `define LIB 
 `include "Router_library.sv"
 `include "Interface.sv"
-`include "secuence_item.sv"
+`include "sequence_item.sv"
+`include "sequence.sv"
 `include "Driver.sv"
 `include "Monitor.sv"
 `include "Agente.sv" 
@@ -42,6 +43,21 @@ module tb;
   
   initial begin
     clk = 0;
+    _if.reset = 0;
+    for (int i = 0; i<16; i++) begin
+      _if.pop[i] = 0;
+      _if.pndng_i_in[i] = 0;
+      _if.data_out_i_in[i] = 0;
+    end
+    
+    @(posedge clk);
+    _if.reset = 1;
+    @(posedge clk);
+    _if.reset = 0;
+      
+  end
+  
+  initial begin
     uvm_config_db#(virtual dut_if)::set(null,"uvm_test_top","dut_if", _if);
     run_test ("test");
   end
