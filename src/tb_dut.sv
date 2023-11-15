@@ -1,5 +1,6 @@
 `timescale 1ns/1ps
-
+`include "uvm_macros.svh"
+import uvm_pkg::*;
 `define ancho 40
 `define filas 4
 `define columnas 4
@@ -9,8 +10,7 @@
 `include "fifo.sv"
 `include "Library.sv"
 `define LIB 
-import uvm_pkg::*;
-`include "uvm_macros.svh"
+
 `include "Router_library.sv"
 `include "Interface.sv"
 `include "sequence_item.sv"
