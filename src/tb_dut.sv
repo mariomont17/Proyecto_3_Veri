@@ -1,4 +1,5 @@
-//`timescale 1ns/1ps
+`timescale 1ns/1ps
+
 `include "uvm_macros.svh"
 import uvm_pkg::*;
 `define ancho 40
@@ -7,10 +8,12 @@ import uvm_pkg::*;
 `define profundidad 4
 `define broadcast {8{1'b1}}
 `define FIFOS
+`define LIB 
+`include "uvm_pkg.sv"
+`include "uvm_macros.svh"
+
 `include "fifo.sv"
 `include "Library.sv"
-`define LIB 
-
 `include "Router_library.sv"
 `include "Interface.sv"
 `include "sequence_item.sv"
