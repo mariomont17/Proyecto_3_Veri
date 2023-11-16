@@ -32,7 +32,7 @@ class monitor extends uvm_monitor;
                 vif.pop[this.id] = 1; //Le hace pop al dato
                 @(posedge vif.clk);
                 vif.pop[this.id] = 0; //pone pop en bajo
-
+                m_item.UnPackage();
                 mon_analysis_port.write(m_item);
                 `uvm_info("MON", $sformatf("T=%g Se recibió un dato: %h ", $time, m_item.paquete), UVM_LOW)
             end

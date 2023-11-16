@@ -17,8 +17,6 @@ class agent extends uvm_agent;
       s[i] = uvm_sequencer#(secuence_item_test_agent)::type_id::create($sformatf("s[%0d]", i) ,this);
     end 
     
-//     s = uvm_sequencer#(secuence_item_test_agent)::type_id::create("s" ,this);
-    
     for (int i = 0; i < 16; i++)begin //Inicializacion de los drivers y monitores 
       d[i] = driver::type_id::create($sformatf("d[%0d]",i),this); //Inicializo los 16 drivers 
       d[i].id = i; //Se establece el id interno de cada driver 

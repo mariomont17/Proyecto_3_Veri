@@ -25,8 +25,6 @@ class test extends uvm_test;
           uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.d[%0d]",i),"dut_if", _if);
           uvm_config_db#(virtual dut_if)::set(this,$sformatf("e0.a0.m[%0d]",i),"dut_if", _if);
         end
-
-    
     endfunction 
 
     virtual task run_phase (uvm_phase phase);
@@ -44,20 +42,36 @@ class test extends uvm_test;
       seq.mode_espec = 1;        //Modo especifico
       seq.pyld_espec = 8'haa;    //Payload especifico
       for (int i = 0; i < 16 ; i++) begin
-        seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
+          seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
       end 
 	
       // PONER LAS OTRAS SECUENCIAS
       
       #1000
       
-      seq = secuence_test_agent::type_id::create("seq"); // primera secuencia - TRANSACCION ESPECIFICA
+      seq = secuence_test_agent::type_id::create("seq"); // segunda secuencia 
       seq.instruccion = trans_aleat_x_terminal;
       for (int i = 0; i < 16 ; i++) begin
-        seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
+          seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
       end
       
+      #1000
+      
+      seq = secuence_test_agent::type_id::create("seq"); // Tercera secuencia - Terminal que no existe
+      seq.instruccion = trans_especifica;
+      seq.term_envio_espec = 6;
+      seq.retardo_espec = 1;     //Retardo especifico
+      seq.row_espec = 2;         //Fila especifica
+      seq.column_espec = 6;       //Columna especifica
+      seq.mode_espec = 0;        //Modo especifico
+      seq.pyld_espec = 8'h99;    //Payload especifico
+      for (int i = 0; i < 16 ; i++) begin
+          seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
+      end 
+      
+      
       phase.drop_objection(this);  //Baja la mano para terminar la simulacion
+
     endtask
 
     

@@ -1,23 +1,23 @@
-import uvm_pkg::*;
-`include "uvm_macros.svh"
+`timescale 1ns/1ps
+
 `define ancho 40
 `define filas 4
 `define columnas 4
 `define profundidad 4
 `define broadcast {8{1'b1}}
 `define FIFOS
-`define LIB 
-`include "uvm_pkg.sv"
-`include "uvm_macros.svh"
-
 `include "fifo.sv"
 `include "Library.sv"
+`define LIB 
+import uvm_pkg::*;
+`include "uvm_macros.svh"
 `include "Router_library.sv"
 `include "Interface.sv"
 `include "sequence_item.sv"
 `include "sequence.sv"
 `include "Driver.sv"
 `include "Monitor.sv"
+`include "Scoreboard.sv"
 `include "Agente.sv" 
 `include "Ambiente.sv"
 `include "Test.sv"
