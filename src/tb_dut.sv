@@ -2,7 +2,7 @@
 `define ancho 40
 `define filas 4
 `define columnas 4
-`define profundidad 4
+`define profundidad 8
 `define broadcast {8{1'b1}}
 `define FIFOS
 `include "fifo.sv"

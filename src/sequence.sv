@@ -53,7 +53,7 @@ class secuence_test_agent extends uvm_sequence;
                 m_item.BuildPackage();
                 m_item.term_dest();
                 m_item.cola_rutas = m_item.ObtenerRuta(m_item.paquete, m_item.id);
-                `uvm_info("SEQ", "Transaccion especifica creada", UVM_LOW);
+               // `uvm_info("SEQ", "Transaccion especifica creada", UVM_LOW);
                 //m_item.print(); //Hora de probarlo 
                 finish_item(m_item);
             end
