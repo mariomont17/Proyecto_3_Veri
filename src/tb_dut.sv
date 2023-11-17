@@ -1,4 +1,3 @@
-`timescale 1ns/1ps
 
 `define ancho 40
 `define filas 4
@@ -14,6 +13,7 @@ import uvm_pkg::*;
 `include "Router_library.sv"
 `include "Interface.sv"
 `include "sequence_item.sv"
+`include "sequence_item_scb.sv"
 `include "sequence.sv"
 `include "Driver.sv"
 `include "Monitor.sv"

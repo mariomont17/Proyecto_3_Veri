@@ -33,7 +33,7 @@ class driver extends uvm_driver #(secuence_item_test_agent );
 
       if (m_item.term_envio == this.id) begin
         drive_item(m_item);
-        #1000;         
+        #500;         
       end
   		seq_item_port.item_done();
     end
@@ -42,7 +42,7 @@ class driver extends uvm_driver #(secuence_item_test_agent );
   virtual task drive_item(secuence_item_test_agent  m_item);
     @(posedge vif.clk);
     `uvm_info("DRV", $sformatf("Transaccion Recibida, pkt = %0h, term_envio = %0d, term_destino=%0d", m_item.paquete, m_item.term_envio,m_item.term_recibido ), UVM_LOW)
-    drv_analysis_port.write(m_item);
+    
     espera = 0;
     
     while(espera < m_item.retardo) begin   // se esperan los ciclos del reloj entre transacciones
@@ -56,9 +56,10 @@ class driver extends uvm_driver #(secuence_item_test_agent );
       vif.reset <= 0;
     end else begin
       fifo_emul.push_back(m_item.paquete);
+      m_item.tiempo_envio = $time;
       vif.pndng_i_in[this.id] = 1'b1;
       vif.data_out_i_in[this.id] = fifo_emul.pop_front(); 
-            
+      drv_analysis_port.write(m_item);      
       @(negedge vif.popin[this.id]);
 
       vif.data_out_i_in[this.id] = fifo_emul[0]; // D_pop apunta al primer elemento de la FIFO
@@ -72,7 +73,7 @@ class driver extends uvm_driver #(secuence_item_test_agent );
       vif.pndng_i_in[this.id] = pndng; // se actualiza la señal de pending del DUT
       
       end
-
+	
     endtask
 
 endclass //driver extends uvm_driver #(seq_item)

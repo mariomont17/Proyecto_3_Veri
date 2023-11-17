@@ -28,12 +28,40 @@ class scoreboard extends uvm_scoreboard;
   bit [3:0] id_r [64]; // id que incluye fila
   bit [3:0] id_c [64];
 
+  // ESTRUCTURAS DE DATOS PARA EL REPORTE
+  sequence_item_scb trans_completas[$]; 	// cola de transacciones completadas
+  sequence_item_scb trans_incompletas[$]; // Queue de las transacciones NO completadas
+  sequence_item_scb transaccion_auxiliar; // se usa para guardar una transaccion del queue principal para su posterior manipulación 
+  sequence_item_scb auxiliar_array[$]; // queue que se usa para guardar el queue principal del scoreboard y no perder las transacciones al hacer pop
+  
+  int retraso_total = 0; // Retraso total en las transacciones hechas 
+  int retraso_x_terminal [16]; // Retraso por cada terminal
+  int transacciones_completadas = 0; // cantidad de transacciones total completadas
+  int transacciones_completadas_x_terminal [16]; // cantidad de transacciones por terminal 
+  shortreal retardo_promedio_gen; // Retardo promedio de la prueba
 
+  int tamano_sb = 0; 
+  shortreal retardo_promedio_x_terminal [16]; // array con retardos promedio por cada terminal
+	
+  shortreal tasa_array [$];
+  shortreal ab_min;
+  shortreal ab_max;
+  shortreal ab_prom;
+
+  //Para los .csv
+  int report;
+  int bw_prom;
+  int bw_max;
+  int bw_min;
+  int reporte_retardo_prom;
+
+  // Registrar en la fabrica
   function new (string name = "scoreboard" , uvm_component parent = null) ;
     super.new(name, parent);
   endfunction
 
   function void build_phase (uvm_phase phase);
+    super.build_phase (phase);
     in_fifo    = new("in_fifo", this);
     out_fifo   = new("out_fifo", this);
     in_export  = new("in_export", this);
@@ -41,12 +69,17 @@ class scoreboard extends uvm_scoreboard;
   endfunction
 
   function void connect_phase (uvm_phase phase);
+    super.connect_phase(phase);
     in_export.connect(in_fifo.analysis_export);
     out_export.connect(out_fifo.analysis_export);
   endfunction
 
-  task run_phase( uvm_phase phase);
-
+  virtual task run_phase( uvm_phase phase);
+    
+    fork 
+    	RutaPaquete();
+    join_none
+    
     forever begin
       secuence_item_test_agent d_txn;  // Desde el driver 
       secuence_item_test_agent m_txn;  // Desde el monitor
@@ -62,10 +95,9 @@ class scoreboard extends uvm_scoreboard;
           actual_out_q.push_back(m_txn.term_recibido);
         end
       join
-      RutaPaquete();
       CompararPaquetes();  // Compara los datos ( Checker)
     end
-
+	
 endtask
   
   // REFERENCE MODEL
@@ -109,6 +141,30 @@ endtask
         end
         else begin
           `uvm_info("SCB", $sformatf("Paquete esperado = %h si coincide con el paquete recibido = %h", exp_txn.paquete, act_txn.paquete), UVM_LOW);
+
+          // se guarda la transaccion completada en una cola para su posterior manipulacion en la fase de reportes 
+          
+          transaccion_auxiliar = sequence_item_scb::type_id::create("transaccion_auxiliar"); // creo la transaccion 
+          
+          transaccion_auxiliar.paquete_enviado = exp_txn.paquete;
+          transaccion_auxiliar.paquete_recibido = act_txn.paquete;
+          transaccion_auxiliar.tiempo_envio = exp_txn.tiempo_envio;
+          transaccion_auxiliar.tiempo_recibido = act_txn.tiempo_recibido;
+          transaccion_auxiliar.term_tx = exp_txn.term_envio;
+          transaccion_auxiliar.term_rx = act_txn.term_recibido;
+          transaccion_auxiliar.completado = 1;
+          transaccion_auxiliar.calc_latencia();
+         // transaccion_auxiliar.print();
+          
+          // se aumentan los retardos entre transacciones 
+          retraso_total = retraso_total + transaccion_auxiliar.latencia;
+          retraso_x_terminal[transaccion_auxiliar.term_rx] = retraso_x_terminal[transaccion_auxiliar.term_rx] + transaccion_auxiliar.latencia;
+          // se aumenta la cantidad de transacciones completadas general y por terminal
+          transacciones_completadas++;
+          transacciones_completadas_x_terminal[transaccion_auxiliar.term_rx]++;
+          // se guarda en una cola de transacciones completadas
+          trans_completas.push_back(transaccion_auxiliar);
+
           actual_out_array.delete(idx);
         end
       end
@@ -118,6 +174,76 @@ endtask
       end 
     end
   endtask
+
+  virtual function void report_phase (uvm_phase phase);
+    super.report_phase(phase);
+    
+    // REPORTE TRANSACCIONES
+    `uvm_info("SCB", $sformatf("Reporte --> Reporte csv de paquetes enviados y recibidos"), UVM_LOW);
+    report = $fopen("report.csv", "w");
+    $fwrite(report, "Dispositivos,Profundidad,Paquete_Enviado,Paquete_Recibido,Tiempo_Envio,Tiempo_Recibido,Terminal_de_Envio,Terminal_de_recibido,Latencia\n");
+    
+    transaccion_auxiliar = sequence_item_scb::type_id::create("transaccion_auxiliar");
+    
+    foreach(trans_completas[i]) begin
+      
+      	transaccion_auxiliar.copy(trans_completas[i]);
+      	transaccion_auxiliar.print();      
+      	$fwrite(report, "%0d, %0d, %0h, %0h, %0g, %0g, %0g, %0g, %0g\n", 16, `profundidad, transaccion_auxiliar.paquete_enviado, transaccion_auxiliar.paquete_recibido, 
+              transaccion_auxiliar.tiempo_envio, transaccion_auxiliar.tiempo_recibido, transaccion_auxiliar.term_tx, transaccion_auxiliar.term_rx,
+              transaccion_auxiliar.latencia);
+              
+   	end
+    $fclose(report);
+    
+    // Se realiza el display de el retardo promedio general y por terminal de la prueba
+    `uvm_info("SCB", $sformatf("Reporte --> Retardo promedio general"), UVM_LOW);
+    retardo_promedio_gen = retraso_total/transacciones_completadas;
+    `uvm_info("SCB", $sformatf("El retardo promedio general es de: %0d ciclos del reloj",  retardo_promedio_gen), UVM_LOW);
+    // se escribe en el csv
+    reporte_retardo_prom = $fopen("reporte_retardo_prom.csv", "a"); // se imprime en csv el retardo promedio de la transmisión
+    $fwrite(reporte_retardo_prom, "Dispositivos,Profundidad,Retardo\n");
+    $fwrite(reporte_retardo_prom, "%0d,%0d,%0.2f\n", 16, `profundidad, retardo_promedio_gen);
+    $fclose(reporte_retardo_prom);
+
+    
+    foreach (retardo_promedio_x_terminal[i]) begin // ciclo for para calcular el retardo promedio por cada terminal
+        retardo_promedio_x_terminal[i] = retraso_x_terminal[i]/transacciones_completadas_x_terminal[i];
+      `uvm_info("SCB", $sformatf("El retardo promedio en la terminal %0g es: %0d ciclos del reloj", i, retardo_promedio_x_terminal[i]), UVM_LOW);
+    end
+    
+    // SE REALIZA EL REPORTE DE ANCHO DE BANDA
+    `uvm_info("SCB", $sformatf("Reporte --> Ancho de banda de la prueba"), UVM_LOW);
+
+    foreach(retardo_promedio_x_terminal[i]) begin  // Para cada transaccion completada, guarda la tasa de bits correspondiente en un arreglo
+      tasa_array[i] = `ancho/retardo_promedio_x_terminal[i];    // se calcula la tasa de bits de cada transacción, tasa = bits del paquete/latencia en segundos
+    end 
+
+    tasa_array.sort(); //Ordena de mayor a menor
+   
+    ab_max = tasa_array[$];
+    ab_min = tasa_array[0];
+    ab_prom = tasa_array.sum()/tasa_array.size();
+
+    `uvm_info("SCB", $sformatf("Ancho de banda máximo: %0f bits/ciclo del reloj", ab_max), UVM_LOW);
+    `uvm_info("SCB", $sformatf("Ancho de banda mínimo: %0f bits/ciclo del reloj", ab_min), UVM_LOW);
+    `uvm_info("SCB", $sformatf("Ancho de banda promedio: %0f bits/ciclo del reloj", ab_prom), UVM_LOW);
+    
+    bw_prom = $fopen("reporte_bw_prom.csv", "a");
+    bw_max = $fopen("reporte_bw_max.csv", "a");
+    bw_min = $fopen("reporte_bw_min.csv", "a");
+
+
+    $fwrite(bw_prom, "Terminales,Profundidad,Ancho_de_Banda\n");
+ 
+    $fwrite(bw_max, "%0d,%0d,%0.2f\n", 16, `profundidad,  ab_max);
+    $fwrite(bw_min, "%0d,%0d,%0.2f\n", 16, `profundidad, ab_min);
+    $fwrite(bw_prom, "%0d,%0d,%0.2f\n", 16, `profundidad, ab_prom);
+    $fclose(bw_prom);
+    $fclose(bw_max);
+    $fclose(bw_min);
+    
+  endfunction
 
   task RutaPaquete(); //Este run se encarga de buscar un paquete recibido en algun router en un queue generado para verificar si se encuentra en la ruta correcta
       #50
@@ -633,11 +759,11 @@ function bit VerificarRuta(bit[`ancho-1:0] paquete=0, bit [7:0] id=0);
     bit [`ancho-9:0] auxiliar;
     bit [10:0] id_aux;
     auxiliar = paquete[`ancho-9:0];
-    if(assoc_queue.exists (auxiliar)) begin // se mira si la transaccion/paquete existe en el arreglo asociativo de colas
-      id_aux = assoc_queue[auxiliar].pop_front(); 
+  if(this.assoc_queue.exists (auxiliar)) begin // se mira si la transaccion/paquete existe en el arreglo asociativo de colas
+      id_aux = this.assoc_queue[auxiliar].pop_front(); 
       if (id == id_aux[9:2]) begin // si el id que recibe la transaccion esta en la ruta (debe ir en orden), va por buen camino 
         `uvm_info("SCB", $sformatf("Paquete: %h, ID_Recibido: %h, ID_Esperado:%h -> Ruta Correcta",paquete,id,id_aux[9:2]), UVM_LOW);  
-        if (assoc_queue[auxiliar].size() == 0) begin // si se vacia la cola
+        if (this.assoc_queue[auxiliar].size() == 0) begin // si se vacia la cola
           `uvm_info("SCB", $sformatf("El Paquete: %h ha llegado a su destino por la ruta correcta",paquete), UVM_LOW);
           this.assoc_queue.delete(auxiliar); // se elimina el index del arreglo
         end
@@ -645,9 +771,9 @@ function bit VerificarRuta(bit[`ancho-1:0] paquete=0, bit [7:0] id=0);
       end else begin // si no recibe en orden correcto, la transaccion no va bien y se imprime 
         `uvm_info("SCB", $sformatf("Paquete: %h, ID_Recibido: %h, ID_Esperado:%h -> Ruta Incorrecta",paquete,id,id_aux[9:2]), UVM_LOW);
        
-        if (assoc_queue[auxiliar].size() == 0) begin // si se vacia la cola y no llega por la ruta correcta
+        if (this.assoc_queue[auxiliar].size() == 0) begin // si se vacia la cola y no llega por la ruta correcta
           `uvm_info("SCB", $sformatf("El Paquete: %h ha llegado a su destino por la ruta incorrecta",paquete), UVM_LOW);
-          assoc_queue.delete(auxiliar); // se elimina el index del arreglo
+          this.assoc_queue.delete(auxiliar); // se elimina el index del arreglo
         end
         return 0;
       end
