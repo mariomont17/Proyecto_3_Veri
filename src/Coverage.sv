@@ -42,6 +42,7 @@ class functional_coverage_router extends uvm_subscriber #(secuence_item_test_age
     `uvm_info("COV", $sformatf("Cobertura Funcional total es:  %0.2f %%",  cg.get_coverage()), UVM_LOW);
     `uvm_info("COV", $sformatf("Cobertura de IDs posibles:  %0.2f %%",  cg.ids_posibles.get_coverage()), UVM_LOW);
     `uvm_info("COV", $sformatf("Cobertura de modos posibles:  %0.2f %%",  cg.modos_posibles.get_coverage()), UVM_LOW);
+    `uvm_info("COV", $sformatf("Cobertura de terminales de recepción:  %0.2f %%",  cg.term_rx.get_coverage()), UVM_LOW);
     `uvm_info("COV", $sformatf("Cobertura de cruce de IDs con modos posibles:  %0.2f %%",  cg.idxmode.get_coverage()), UVM_LOW);
    
   endfunction      

@@ -188,7 +188,7 @@ endtask
     foreach(trans_completas[i]) begin
       
       	transaccion_auxiliar.copy(trans_completas[i]);
-      	//transaccion_auxiliar.print();      
+      	transaccion_auxiliar.print();      
       	$fwrite(report, "%0d, %0d, %0h, %0h, %0g, %0g, %0g, %0g, %0g\n", 16, `profundidad, transaccion_auxiliar.paquete_enviado, transaccion_auxiliar.paquete_recibido, 
               transaccion_auxiliar.tiempo_envio, transaccion_auxiliar.tiempo_recibido, transaccion_auxiliar.term_tx, transaccion_auxiliar.term_rx,
               transaccion_auxiliar.latencia);

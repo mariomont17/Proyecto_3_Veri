@@ -46,18 +46,10 @@ class test extends uvm_test;
           seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
       end 
 	
-      // PONER LAS OTRAS SECUENCIAS
+      // PONER LAS OTRAS SECUENCIAS  
       
       #1000
-      `uvm_info("TST", $sformatf("Segunda Secuencia ---> Llenar FIFOs"), UVM_LOW)
-      seq = secuence_test_agent::type_id::create("seq"); // segunda secuencia 
-      seq.instruccion = trans_aleat_x_terminal;
-      for (int i = 0; i < 16 ; i++) begin
-          seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
-      end
-      
-      #1000
-      `uvm_info("TST", $sformatf("Tercera Secuencia ---> Transaccion a Terminal que no existe"), UVM_LOW)
+      `uvm_info("TST", $sformatf("Segunda Secuencia ---> Transaccion a Terminal que no existe"), UVM_LOW)
       seq = secuence_test_agent::type_id::create("seq"); // Tercera secuencia - Terminal que no existe
       seq.instruccion = trans_especifica;
       seq.term_envio_espec = 6;
@@ -71,7 +63,7 @@ class test extends uvm_test;
       end 
       
       #1000
-      `uvm_info("TST", $sformatf("Cuarta Secuencia ---> Todas a Todas Modo 0"), UVM_LOW)
+      `uvm_info("TST", $sformatf("Tercera Secuencia ---> Todas Envian a Todas con Modo 0"), UVM_LOW)
       seq = secuence_test_agent::type_id::create("seq"); // Cuarta secuencia - Todas a Todas Modo 0
       seq.instruccion = todas_a_todas_mode_esp;
       seq.mode_espec = 0; //Modo 0
@@ -80,10 +72,10 @@ class test extends uvm_test;
       end
       
       #1000
-      `uvm_info("TST", $sformatf("Cuarta Secuencia ---> Todas a Todas Modo 1"), UVM_LOW)
+      `uvm_info("TST", $sformatf("Cuarta Secuencia ---> Todas Envian a Todas con Modo 1"), UVM_LOW)
       seq = secuence_test_agent::type_id::create("seq"); // Cuarta secuencia - Todas a Todas Modo 1
       seq.instruccion = todas_a_todas_mode_esp;
-      seq.mode_espec = 1; //Modo 0
+      seq.mode_espec = 1; //Modo 1
       for (int i = 0; i < 16 ; i++) begin
           seq.start(e0.a0.s[i]);  //Inicio de la secuencia en todos los secuenciadores
       end
