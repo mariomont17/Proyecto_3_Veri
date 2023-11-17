@@ -1,27 +1,22 @@
- 
+
 typedef bit [10:0] cola_de_rutas[$];
 
-//Se declara el item que se enviara al secuenciador
 class secuence_item_test_agent extends uvm_sequence_item;
   
-  //Declaro las variables del ob
-  
-  // se definen primero los bits de contenido del paquete
   bit tipo; //Envio 1, reset 0
-  bit 	 [`ancho-1:0] paquete; // paquete completo que entra al DUT
+  bit [`ancho-1:0] paquete; // paquete completo que entra al DUT
 
   // METADATOS
-  bit 	 [7:0] nxt_jump; // 8 bits más significativos del paquete, NXT JUMP
+  bit [7:0] nxt_jump; // 8 bits más significativos del paquete, NXT JUMP
   rand bit [3:0] row; // 4 bits para identificador de fila de destino
   rand bit [3:0] column; // 4 bits para identificador de columna de destino
   rand bit mode; // 1 bit de modo
-  // MENSAJE
-
   rand bit [`ancho-18:0] payload; // bits restantes del paquete para payload
+  
+  
   bit [7:0] src; // router fuente 
   bit [7:0] id; // router destino
 
-  // Se definen las características de envio del paquete: retardo, tiempos de envio/recibido, terminal de envio/recibido
   int retardo_max; // retardo máximo de envio de paquetes (en ciclos del reloj) 
   randc int retardo; // retardo del envio específico de un paquete
   rand int unsigned term_envio; // terminal que envía el paquete
@@ -31,7 +26,6 @@ class secuence_item_test_agent extends uvm_sequence_item;
 
   cola_de_rutas cola_rutas; //Cola que contiene la ruta que debe sequir la transaccion
   	
-  
   constraint row_colum { // constraint para limitar el tamaño de las filas y columnas
         row >= 0; row < 6;  
         column >= 0; column < 6;
@@ -129,6 +123,7 @@ class secuence_item_test_agent extends uvm_sequence_item;
       8'h25: this.term_recibido = 13;
       8'h35: this.term_recibido = 14;
       8'h45: this.term_recibido = 15;
+      default: this.term_recibido = 22; // Valor X para casos de id desconocido xd
     endcase
   endfunction
 
