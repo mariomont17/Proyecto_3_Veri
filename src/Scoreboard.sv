@@ -188,7 +188,7 @@ endtask
     foreach(trans_completas[i]) begin
       
       	transaccion_auxiliar.copy(trans_completas[i]);
-      	transaccion_auxiliar.print();      
+      	//transaccion_auxiliar.print();      
       	$fwrite(report, "%0d, %0d, %0h, %0h, %0g, %0g, %0g, %0g, %0g\n", 16, `profundidad, transaccion_auxiliar.paquete_enviado, transaccion_auxiliar.paquete_recibido, 
               transaccion_auxiliar.tiempo_envio, transaccion_auxiliar.tiempo_recibido, transaccion_auxiliar.term_tx, transaccion_auxiliar.term_rx,
               transaccion_auxiliar.latencia);
@@ -762,7 +762,7 @@ function bit VerificarRuta(bit[`ancho-1:0] paquete=0, bit [7:0] id=0);
   if(this.assoc_queue.exists (auxiliar)) begin // se mira si la transaccion/paquete existe en el arreglo asociativo de colas
       id_aux = this.assoc_queue[auxiliar].pop_front(); 
       if (id == id_aux[9:2]) begin // si el id que recibe la transaccion esta en la ruta (debe ir en orden), va por buen camino 
-        `uvm_info("SCB", $sformatf("Paquete: %h, ID_Recibido: %h, ID_Esperado:%h -> Ruta Correcta",paquete,id,id_aux[9:2]), UVM_LOW);  
+        //`uvm_info("SCB", $sformatf("Paquete: %h, ID_Recibido: %h, ID_Esperado:%h -> Ruta Correcta",paquete,id,id_aux[9:2]), UVM_LOW);  
         if (this.assoc_queue[auxiliar].size() == 0) begin // si se vacia la cola
           `uvm_info("SCB", $sformatf("El Paquete: %h ha llegado a su destino por la ruta correcta",paquete), UVM_LOW);
           this.assoc_queue.delete(auxiliar); // se elimina el index del arreglo

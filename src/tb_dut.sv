@@ -8,6 +8,7 @@
 `include "fifo.sv"
 `include "Library.sv"
 `define LIB 
+
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "Router_library.sv"
@@ -17,11 +18,13 @@ import uvm_pkg::*;
 `include "sequence.sv"
 `include "Driver.sv"
 `include "Monitor.sv"
+`include "Coverage.sv" // archivo de cobertura funcional
 `include "Scoreboard.sv"
 `include "Agente.sv" 
 `include "Ambiente.sv"
 `include "Test.sv"
 
+`include "Assertions.sv" // archivo de aserciones
 
 
 
