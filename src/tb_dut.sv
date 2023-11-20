@@ -1,8 +1,8 @@
-
+`include "parameters_pkg.sv"
 `define ancho 40
 `define filas 4
 `define columnas 4
-`define profundidad 8
+`define profundidad params_pkg::PROFUNDIDAD
 `define broadcast {8{1'b1}}
 `define FIFOS
 `include "fifo.sv"
