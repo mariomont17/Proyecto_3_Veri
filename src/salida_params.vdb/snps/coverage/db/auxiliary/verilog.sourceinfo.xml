@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<!DOCTYPE cov SYSTEM "ucdb_srcinfo.dtd">
+  <srcinfo name="/mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src"  >
+    <ucapi_version  major_ver="13"  minor_ver="1"  patch_str="R-2020.12-SP2"  />
+      <fileinfo name="module_params.sv"  id="0"  timestamp="1700505006"  />
+    </srcinfo>

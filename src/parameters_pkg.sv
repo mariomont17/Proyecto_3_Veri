@@ -1,3 +1,3 @@
 package params_pkg;
-  parameter PROFUNDIDAD = 30;
+parameter PROFUNDIDAD = 14;
 endpackage

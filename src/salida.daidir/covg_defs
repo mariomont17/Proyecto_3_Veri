@@ -1,0 +1,117 @@
+global coverage_group 0 $unit::functional_coverage_router::cg __coverage_functional_coverage_router.cg unused_functional_coverage_router_cg_loop_label $unit 0 1 0 1 $unit::/mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/macros/snps_macros.svp::/mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/macros/uvm_callback_defines.svh...@1513351253 0  ( 0 
+)
+ 1 1
+ 99 /mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/Coverage.sv
+ 10 0 0 0 1 0 0 0 0  1
+0
+0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+0
+0
+0
+64
+0
+ 0
+
+3
+0
+1
+0
+ 12 ids_posibles 11 0 0 0 0 0 168 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn 168 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 -1 2 8 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 1 1 1 1 0 1 1 2 b1 16 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 16 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_0 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_1 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_2 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_3 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_4 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_5 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_6 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_7 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_8 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_9 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_a 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_b 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_c 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_d 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_e 0 0 0 0 0 0 0
+ 1 1 170 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_f 0 0 0 0 0 0 0
+ 0
+
+ 7 term_rx 18 0 0 0 0 0 171 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_10 171 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_10 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 -1 2 4 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 14 modos_posibles 19 0 0 0 0 0 171 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_11 171 _vcs_unit__1513351253_functional_coverage_router_11_0::_vcs_unit__1513351253_functional_coverage_router_11_0__vcs_unit__1513351253_functional_coverage_router_11_0_cg_fn_11 0 0 0 0 0 0 0 0 0 0 0 -1 0 0 -1 0 0 0 -1 2 1 0 0 1 0 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 7 idxmode 0 20 0 0 -1 0 0 0 0 2 0 2 -1 0 0 0
+ 0
+ 0
+ 0
+ 0 0
+ 0 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+ 0
+end_coverage_group

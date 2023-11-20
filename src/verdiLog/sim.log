@@ -1,0 +1,636 @@
+Command: /mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/salida -sml=verdi +UVM_VERDI_TRACE=UVM_AWARE +fsdb+gate=off -ucli2Proc -ucli -l /mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/verdiLog/sim.log
+Chronologic VCS simulator copyright 1991-2020
+Contains Synopsys proprietary information.
+Compiler version R-2020.12-SP2_Full64; Runtime version R-2020.12-SP2_Full64;  Nov 14 23:28 2023
+<slp!&*()_+>
+UVM_INFO /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh(402) @ 0: reporter [UVM/RELNOTES] 
+----------------------------------------------------------------
+UVM-1.2.Synopsys
+(C) 2007-2014 Mentor Graphics Corporation
+(C) 2007-2014 Cadence Design Systems, Inc.
+(C) 2006-2014 Synopsys, Inc.
+(C) 2011-2013 Cypress Semiconductor Corp.
+(C) 2013-2014 NVIDIA Corporation
+----------------------------------------------------------------
+  ***********       IMPORTANT RELEASE NOTES         ************
+  You are using a version of the UVM library that has been compiled
+  with `UVM_NO_DEPRECATED undefined.
+  See http://www.eda.org/svdb/view.php?id=3313 for more details.
+  You are using a version of the UVM library that has been compiled
+  with `UVM_OBJECT_DO_NOT_NEED_CONSTRUCTOR undefined.
+  See http://www.eda.org/svdb/view.php?id=3770 for more details.
+      (Specify +UVM_NO_RELNOTES to turn off this notice)
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh<sls!&*()_+>line: 402<sls!&*()_+>time: 0 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+
+ucli% synUtils::getArch
+linux64
+ucli% loaddl -simv /mnt/vol_NFS_rh003/tools/verdi/R-2020.12-SP2/share/PLI/VCS/LINUXAMD64/libnovas.so LoadFSDBDumpCmd;LoadFSDBDumpCmd
+LoadFSDBDumpCmd success
+ucli% config ckptfsdbcheck off;config endofsim noexit;config onfail {enable all};config followactivescope on;catch {setUcliVerdiConnected};set watch::resultTagsForVerdiBP {<ucli_break_bp_status_begin> <ucli_break_bp_status_end>};set ucliCore::support_restore_through_stask_in_verdi 1;cbug::config pretty_print auto;fsdbDumpfile {/mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/inter.fsdb} ;fsdbDumpflush ; 
+*Verdi* Loading libsscore_vcs202012.so
+FSDB Dumper for VCS, Release Verdi_R-2020.12-SP2, Linux x86_64/64bit, 05/23/2021
+(C) 1996 - 2021 by Synopsys, Inc.
+*Verdi* : Create FSDB file '/mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/inter.fsdb'
+*Verdi* : Flush all FSDB Files at 0 ns.
+
+ucli% synEnv::hasFataled
+0
+ucli% ucliCore::getToolPID
+2255228
+ucli% sps_interactive
+*Verdi* : Enable RPC Server(2255228)
+
+ucli% ucliCore::getToolPID
+2255228
+ucli% ucliCore::getToolPID
+2255228
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% puts $ucliCore::nativeUcliMode
+0
+
+ucli% ucliCore::getToolTopPID
+2255228
+ucli% pid
+2255246
+ucli% synUtils::sendTool -active {_icl_createSharedMemory /tmp/vcs_dve_general.JeremyCordoba_II_2023.2255228 }
+
+ucli% if { [info vars watch::vcbp_str_len_limit_of_get_value] != ""} {set watch::vcbp_str_len_limit_of_get_value 1024}
+1024
+ucli% info command stateVerdiChangeCB
+
+ucli% proc stateVerdiChangeCB args { if {$ucliGUI::state eq "terminated"} {puts "\n<VERDI_Terminated>\n";catch {setVerdiSimTerminated}}}
+
+ucli% trace variable ucliGUI::state wu stateVerdiChangeCB
+
+ucli% if {[catch {rename synopsys::restore verdiHack::restore} ]} {puts "0"}
+
+ucli% proc synopsys::restore {args} { verdiHack::restore $args; puts "\n<VERDI_RESTORE>\n"}
+
+ucli% if {[catch {rename quit verdiHack::quit} ]} {puts "0"}
+
+ucli% proc quit {args} { if {[string length $args] == 0} { verdiHack::quit; } elseif {([string equal "-h" $args] == 1)||([string equal "-he" $args] == 1)||([string equal "-hel" $args] == 1)||([string equal "-help" $args] == 1)} { puts "\n quit           # Exit the simulation.\n \[-noprompt\]        (Exit the simulation and Verdi.)\n"} elseif {([string equal "-n" $args] == 1)||([string equal "-no" $args] == 1)||([string equal "-nop" $args] == 1)||([string equal "-nopr" $args] == 1)||([string equal "-nopro" $args] == 1)||([string equal "-noprom" $args] == 1)||([string equal "-nopromp" $args] == 1)||([string equal "-noprompt" $args] == 1)} { puts "\nVERDI_EXIT_N\n" } else { verdiHack::quit $args; } }
+
+ucli% if {[catch {rename exit verdiHack::exit} ]} {puts "0"}
+
+ucli% proc exit {args} { if {[string length $args] == 0} { verdiHack::exit; } elseif {([string equal "-h" $args] == 1)||([string equal "-he" $args] == 1)||([string equal "-hel" $args] == 1)||([string equal "-help" $args] == 1)} { puts "\n exit           # Exit the simulation.\n \[-noprompt\]        (Exit the simulation and Verdi.)\n"} elseif {([string equal "-n" $args] == 1)||([string equal "-no" $args] == 1)||([string equal "-nop" $args] == 1)||([string equal "-nopr" $args] == 1)||([string equal "-nopro" $args] == 1)||([string equal "-noprom" $args] == 1)||([string equal "-nopromp" $args] == 1)||([string equal "-noprompt" $args] == 1)} { puts "\nVERDI_EXIT_N\n" } else { verdiHack::exit $args; } }
+
+ucli% proc checkpoint::beforeRecreate {} { sps_interactive }
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% save::getUserdefinedProcs
+::stateVerdiChangeCB ::LoadFSDBDumpCmd
+ucli% info procs
+ipi_get_str fsdbDumpMDAByFile fsdbDumpMDA echo fsdbDumpMemNow fsdbAutoSwitchDumpfile unknown sps_interactive auto_import stat fsdbDumpfile setenv auto_execok pkg_mkIndex stateVerdiChangeCB fsdbDumpSingle proc_body ipi_begin fsdbDumpoff getenv fsdbDumplimit fsdbDumpPattern ipi_handle ipi_get_prop fsdbDumpvarsByFile fsdbDumpMDAInScope lminus ipi_sim_get ls auto_load_index proc_args fsdbAddRuntimeSignal fsdbDumpSC print_message_info ridbDump fsdbDumpSVAoff fsdbSuppress fsdbDumpvars help fsdbDumpMDAOnChange ipi_control auto_qualify fsdbDumpMem tclPkgUnknown printenv ipi_handle_by_name helpdoc fsdbDumpMemInScope fsdbDumpFinish is_true fsdbDumpon sh fsdbQueryInfo LoadFSDBDumpCmd fsdbDumpPSL fsdbDumpSVA ipi_end wrapperSpecmanSn fsdbDumpSVAon fsdbDumpClassObjectByFile is_false auto_load fsdbDumpPSLon ipi_get_int64 fsdbSubstituteHier ipi_get_value ipi_iterate exit fsdbDumpMemInFile tclLog fsdbDumpflush get_unix_variable mem_debug ipi_scan fsdbDumpPSLoff fsdbDumpClassObject fsdbDumpvarsToFile set_unix_variable bgerror fsdbDumpStrength clock add_group fsdbSwitchDumpfile source add_wave ipi_set_prop unsetenv fsdbDumpvarsES readline fsdbDisplay ipi_handle_free set_group ipi_get quit define_proc_attributes tclPkgSetup fsdbDumpMDANow ipi_init_play_tcl fsdbDumpIO
+ucli% set ucliCore::resultTagsForVerdi [list <?special_verdi_begin?> <?special_verdi_end?>]
+<?special_verdi_begin?> <?special_verdi_end?>
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpflush 
+*Verdi* : Flush all FSDB Files at 0 ns.
+
+ucli% senv
+activeDomain: Verilog
+activeFile: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/uvm_pkg.sv
+activeFrame: -1
+activeLine: 28
+activeScope: uvm_pkg
+activeThread: 0
+endCol: 0
+file: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/uvm_pkg.sv
+frame: -1
+fsdbFilename: 
+hasTB: 1
+inputFilename: 
+keyFilename: ucli.key
+line: 28
+logFilename: /mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/verdiLog/sim.log
+macroIndex: -1
+macroOffset: -1
+pid: 2255228
+scope: uvm_pkg
+startCol: 0
+state: stopped
+thread: 0
+time: 0
+timePrecision: 1 ns
+vcdFilename: 
+vpdFilename:
+ucli% puts $::ucliCore::cbug_active
+0
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% checkpoint -list -all
+There are no checkpoints present.
+ucli% stop
+No stop points are set
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpvars 1 "tb.DUT"  +all +trace_process;fsdbDumpflush 
+*Verdi* : Begin traversing the scope (tb.DUT), layer (1).
+*Verdi* : Enable +trace_process and +all dumping.
+*Verdi* : End of traversing.
+*Verdi* : Flush all FSDB Files at 0 ns.
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% run
+<slp!&*()_+>
+*Verdi* Enable Verdi Message Catcher.
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/verdi/uvm_verdi_message_catcher.svh<sls!&*()_+>line: 376<sls!&*()_+>time: 0 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+*Verdi* Enable Verdi Factory Dumping.
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/verdi/uvm_verdi_factory.svh<sls!&*()_+>line: 166<sls!&*()_+>time: 0 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO @ 0: reporter [RNTST] Running test test...
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh<sls!&*()_+>line: 504<sls!&*()_+>time: 0 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 105: uvm_test_top.e0.a0.d[3] [DRV] Transaccion Recibida, pkt = 548000aa, term_envio = 3
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 105 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 245: uvm_test_top.e0.a0.m[11] [MON] T=245 Se recibiÃ³ un dato: 02548000aa 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 2185: uvm_test_top.e0.a0.d[0] [DRV] Transaccion Recibida, pkt = 105af492, term_envio = 0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 2185 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 2235: uvm_test_top.e0.a0.m[4] [MON] T=2235 Se recibiÃ³ un dato: 03105af492 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 2235 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 3235: uvm_test_top.e0.a0.d[0] [DRV] Transaccion Recibida, pkt = 1004ed4a, term_envio = 0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 3235 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 3365: uvm_test_top.e0.a0.m[4] [MON] T=3365 Se recibiÃ³ un dato: 031004ed4a 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 3365 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 4365: uvm_test_top.e0.a0.d[0] [DRV] Transaccion Recibida, pkt = 4229c58, term_envio = 0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 4365 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 4715: uvm_test_top.e0.a0.m[3] [MON] T=4715 Se recibiÃ³ un dato: 0004229c58 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 4715 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 5485: uvm_test_top.e0.a0.d[0] [DRV] Transaccion Recibida, pkt = 40cf025a, term_envio = 0
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 5485 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 5685: uvm_test_top.e0.a0.m[7] [MON] T=5685 Se recibiÃ³ un dato: 0340cf025a 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 5685 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 6625: uvm_test_top.e0.a0.d[1] [DRV] Transaccion Recibida, pkt = 54766232, term_envio = 1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 6625 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 7185: uvm_test_top.e0.a0.m[11] [MON] T=7185 Se recibiÃ³ un dato: 0254766232 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 7185 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 7735: uvm_test_top.e0.a0.d[1] [DRV] Transaccion Recibida, pkt = 40e54ea6, term_envio = 1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 7735 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 7965: uvm_test_top.e0.a0.m[7] [MON] T=7965 Se recibiÃ³ un dato: 0340e54ea6 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 7965 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 8875: uvm_test_top.e0.a0.d[1] [DRV] Transaccion Recibida, pkt = 33eab9c, term_envio = 1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 8875 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 9125: uvm_test_top.e0.a0.m[2] [MON] T=9125 Se recibiÃ³ un dato: 00033eab9c 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 9125 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 10035: uvm_test_top.e0.a0.d[1] [DRV] Transaccion Recibida, pkt = 1007dee, term_envio = 1
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 10035 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 10255: uvm_test_top.e0.a0.m[0] [MON] T=10255 Se recibiÃ³ un dato: 0001007dee 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 10255 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 11225: uvm_test_top.e0.a0.d[2] [DRV] Transaccion Recibida, pkt = 35836963, term_envio = 2
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 11225 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 11385: uvm_test_top.e0.a0.m[14] [MON] T=11385 Se recibiÃ³ un dato: 0135836963 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 11385 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 12275: uvm_test_top.e0.a0.d[2] [DRV] Transaccion Recibida, pkt = 5239a343, term_envio = 2
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 12275 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 12755: uvm_test_top.e0.a0.m[9] [MON] T=12755 Se recibiÃ³ un dato: 025239a343 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 12755 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 13455: uvm_test_top.e0.a0.d[2] [DRV] Transaccion Recibida, pkt = 20b9f19a, term_envio = 2
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 13455 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 13725: uvm_test_top.e0.a0.m[5] [MON] T=13725 Se recibiÃ³ un dato: 0320b9f19a 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 13725 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 14575: uvm_test_top.e0.a0.d[2] [DRV] Transaccion Recibida, pkt = 24c793b, term_envio = 2
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 14575 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 14835: uvm_test_top.e0.a0.m[1] [MON] T=14835 Se recibiÃ³ un dato: 00024c793b 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 14835 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 15745: uvm_test_top.e0.a0.d[3] [DRV] Transaccion Recibida, pkt = 522a46f5, term_envio = 3
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 15745 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 16195: uvm_test_top.e0.a0.m[9] [MON] T=16195 Se recibiÃ³ un dato: 02522a46f5 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 16195 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 16825: uvm_test_top.e0.a0.d[3] [DRV] Transaccion Recibida, pkt = 15726389, term_envio = 3
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 16825 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 16965: uvm_test_top.e0.a0.m[12] [MON] T=16965 Se recibiÃ³ un dato: 0115726389 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 16965 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 17965: uvm_test_top.e0.a0.d[3] [DRV] Transaccion Recibida, pkt = 25d91013, term_envio = 3
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 17965 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 18215: uvm_test_top.e0.a0.m[13] [MON] T=18215 Se recibiÃ³ un dato: 0125d91013 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 18215 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 19125: uvm_test_top.e0.a0.d[3] [DRV] Transaccion Recibida, pkt = 4e4fb87, term_envio = 3
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 19125 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 19245: uvm_test_top.e0.a0.m[3] [MON] T=19245 Se recibiÃ³ un dato: 0004e4fb87 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 19245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 20245: uvm_test_top.e0.a0.d[4] [DRV] Transaccion Recibida, pkt = 45038703, term_envio = 4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 20245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 20785: uvm_test_top.e0.a0.m[15] [MON] T=20785 Se recibiÃ³ un dato: 0145038703 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 20785 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 21405: uvm_test_top.e0.a0.d[4] [DRV] Transaccion Recibida, pkt = 40881e5, term_envio = 4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 21405 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 21855: uvm_test_top.e0.a0.m[3] [MON] T=21855 Se recibiÃ³ un dato: 00040881e5 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 21855 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 22585: uvm_test_top.e0.a0.d[4] [DRV] Transaccion Recibida, pkt = 5471c1f2, term_envio = 4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 22585 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 23295: uvm_test_top.e0.a0.m[11] [MON] T=23295 Se recibiÃ³ un dato: 025471c1f2 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 23295 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 23755: uvm_test_top.e0.a0.d[4] [DRV] Transaccion Recibida, pkt = 15dc1367, term_envio = 4
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 23755 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 24205: uvm_test_top.e0.a0.m[12] [MON] T=24205 Se recibiÃ³ un dato: 0115dc1367 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 24205 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 24935: uvm_test_top.e0.a0.d[5] [DRV] Transaccion Recibida, pkt = 1e6a9da, term_envio = 5
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 24935 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 25175: uvm_test_top.e0.a0.m[0] [MON] T=25175 Se recibiÃ³ un dato: 0001e6a9da 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 25175 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 26105: uvm_test_top.e0.a0.d[5] [DRV] Transaccion Recibida, pkt = 465556b, term_envio = 5
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 26105 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 26495: uvm_test_top.e0.a0.m[3] [MON] T=26495 Se recibiÃ³ un dato: 000465556b 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 26495 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 27215: uvm_test_top.e0.a0.d[5] [DRV] Transaccion Recibida, pkt = 357def9e, term_envio = 5
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 27215 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 27785: uvm_test_top.e0.a0.m[14] [MON] T=27785 Se recibiÃ³ un dato: 01357def9e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 27785 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 28425: uvm_test_top.e0.a0.d[5] [DRV] Transaccion Recibida, pkt = 51a15832, term_envio = 5
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 28425 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 28775: uvm_test_top.e0.a0.m[8] [MON] T=28775 Se recibiÃ³ un dato: 0251a15832 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 28775 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 29615: uvm_test_top.e0.a0.d[6] [DRV] Transaccion Recibida, pkt = 40a096e2, term_envio = 6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 29615 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 29875: uvm_test_top.e0.a0.m[7] [MON] T=29875 Se recibiÃ³ un dato: 0340a096e2 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 29875 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 30785: uvm_test_top.e0.a0.d[6] [DRV] Transaccion Recibida, pkt = 4581e425, term_envio = 6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 30785 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 31245: uvm_test_top.e0.a0.m[15] [MON] T=31245 Se recibiÃ³ un dato: 014581e425 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 31245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 31935: uvm_test_top.e0.a0.d[6] [DRV] Transaccion Recibida, pkt = 1516fb67, term_envio = 6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 31935 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 32435: uvm_test_top.e0.a0.m[12] [MON] T=32435 Se recibiÃ³ un dato: 011516fb67 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 32435 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 33065: uvm_test_top.e0.a0.d[6] [DRV] Transaccion Recibida, pkt = 150714cd, term_envio = 6
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 33065 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 33715: uvm_test_top.e0.a0.m[12] [MON] T=33715 Se recibiÃ³ un dato: 01150714cd 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 33715 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 34265: uvm_test_top.e0.a0.d[7] [DRV] Transaccion Recibida, pkt = 15c879c0, term_envio = 7
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 34265 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 34835: uvm_test_top.e0.a0.m[12] [MON] T=34835 Se recibiÃ³ un dato: 0115c879c0 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 34835 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 35395: uvm_test_top.e0.a0.d[7] [DRV] Transaccion Recibida, pkt = 1571e69a, term_envio = 7
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 35395 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 36095: uvm_test_top.e0.a0.m[12] [MON] T=36095 Se recibiÃ³ un dato: 011571e69a 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 36095 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 36595: uvm_test_top.e0.a0.d[7] [DRV] Transaccion Recibida, pkt = 521e8eec, term_envio = 7
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 36595 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 36885: uvm_test_top.e0.a0.m[9] [MON] T=36885 Se recibiÃ³ un dato: 02521e8eec 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 36885 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 37795: uvm_test_top.e0.a0.d[7] [DRV] Transaccion Recibida, pkt = 35194f24, term_envio = 7
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 37795 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 38325: uvm_test_top.e0.a0.m[14] [MON] T=38325 Se recibiÃ³ un dato: 0135194f24 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 38325 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 38965: uvm_test_top.e0.a0.d[8] [DRV] Transaccion Recibida, pkt = 301234ca, term_envio = 8
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 38965 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 39245: uvm_test_top.e0.a0.m[6] [MON] T=39245 Se recibiÃ³ un dato: 03301234ca 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 39245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 40155: uvm_test_top.e0.a0.d[8] [DRV] Transaccion Recibida, pkt = 253d8369, term_envio = 8
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 40155 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 40735: uvm_test_top.e0.a0.m[13] [MON] T=40735 Se recibiÃ³ un dato: 01253d8369 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 40735 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 41285: uvm_test_top.e0.a0.d[8] [DRV] Transaccion Recibida, pkt = 1fc275e, term_envio = 8
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 41285 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 41705: uvm_test_top.e0.a0.m[0] [MON] T=41705 Se recibiÃ³ un dato: 0001fc275e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 41705 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 42435: uvm_test_top.e0.a0.d[8] [DRV] Transaccion Recibida, pkt = 35d3e391, term_envio = 8
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 42435 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 42885: uvm_test_top.e0.a0.m[14] [MON] T=42885 Se recibiÃ³ un dato: 0135d3e391 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 42885 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 43585: uvm_test_top.e0.a0.d[9] [DRV] Transaccion Recibida, pkt = 3e8f1ea, term_envio = 9
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 43585 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 43995: uvm_test_top.e0.a0.m[2] [MON] T=43995 Se recibiÃ³ un dato: 0003e8f1ea 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 43995 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 44695: uvm_test_top.e0.a0.d[9] [DRV] Transaccion Recibida, pkt = 1b017c1, term_envio = 9
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 44695 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 45145: uvm_test_top.e0.a0.m[0] [MON] T=45145 Se recibiÃ³ un dato: 0001b017c1 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 45145 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 45805: uvm_test_top.e0.a0.d[9] [DRV] Transaccion Recibida, pkt = 54830d03, term_envio = 9
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 45805 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 46145: uvm_test_top.e0.a0.m[11] [MON] T=46145 Se recibiÃ³ un dato: 0254830d03 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 46145 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 46965: uvm_test_top.e0.a0.d[9] [DRV] Transaccion Recibida, pkt = 2e37e5d, term_envio = 9
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 46965 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 47425: uvm_test_top.e0.a0.m[1] [MON] T=47425 Se recibiÃ³ un dato: 0002e37e5d 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 47425 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 48155: uvm_test_top.e0.a0.d[10] [DRV] Transaccion Recibida, pkt = 394403e, term_envio = 10
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 48155 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 48495: uvm_test_top.e0.a0.m[2] [MON] T=48495 Se recibiÃ³ un dato: 000394403e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 48495 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 49285: uvm_test_top.e0.a0.d[10] [DRV] Transaccion Recibida, pkt = 42017bb, term_envio = 10
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 49285 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 49775: uvm_test_top.e0.a0.m[3] [MON] T=49775 Se recibiÃ³ un dato: 00042017bb 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 49775 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 50435: uvm_test_top.e0.a0.d[10] [DRV] Transaccion Recibida, pkt = 3f5a317, term_envio = 10
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 50435 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 50815: uvm_test_top.e0.a0.m[2] [MON] T=50815 Se recibiÃ³ un dato: 0003f5a317 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 50815 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 51545: uvm_test_top.e0.a0.d[10] [DRV] Transaccion Recibida, pkt = 457c799f, term_envio = 10
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 51545 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 51785: uvm_test_top.e0.a0.m[15] [MON] T=51785 Se recibiÃ³ un dato: 01457c799f 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 51785 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 52695: uvm_test_top.e0.a0.d[11] [DRV] Transaccion Recibida, pkt = 5276dd5d, term_envio = 11
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 52695 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 52995: uvm_test_top.e0.a0.m[9] [MON] T=52995 Se recibiÃ³ un dato: 025276dd5d 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 52995 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 53855: uvm_test_top.e0.a0.d[11] [DRV] Transaccion Recibida, pkt = 5275e80e, term_envio = 11
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 53855 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 54165: uvm_test_top.e0.a0.m[9] [MON] T=54165 Se recibiÃ³ un dato: 025275e80e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 54165 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 54985: uvm_test_top.e0.a0.d[11] [DRV] Transaccion Recibida, pkt = 51096f1e, term_envio = 11
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 54985 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 55355: uvm_test_top.e0.a0.m[8] [MON] T=55355 Se recibiÃ³ un dato: 0251096f1e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 55355 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 56105: uvm_test_top.e0.a0.d[11] [DRV] Transaccion Recibida, pkt = 54d1f570, term_envio = 11
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 56105 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 56225: uvm_test_top.e0.a0.m[11] [MON] T=56225 Se recibiÃ³ un dato: 0254d1f570 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 56225 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 57225: uvm_test_top.e0.a0.d[12] [DRV] Transaccion Recibida, pkt = 25f3a450, term_envio = 12
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 57225 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 57465: uvm_test_top.e0.a0.m[13] [MON] T=57465 Se recibiÃ³ un dato: 0125f3a450 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 57465 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 58415: uvm_test_top.e0.a0.d[12] [DRV] Transaccion Recibida, pkt = 151601ad, term_envio = 12
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 58415 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 58605: uvm_test_top.e0.a0.m[12] [MON] T=58605 Se recibiÃ³ un dato: 01151601ad 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 58605 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 59605: uvm_test_top.e0.a0.d[12] [DRV] Transaccion Recibida, pkt = 5325cc4e, term_envio = 12
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 59605 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 59955: uvm_test_top.e0.a0.m[10] [MON] T=59955 Se recibiÃ³ un dato: 025325cc4e 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 59955 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 60715: uvm_test_top.e0.a0.d[12] [DRV] Transaccion Recibida, pkt = 208b2240, term_envio = 12
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 60715 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 61175: uvm_test_top.e0.a0.m[5] [MON] T=61175 Se recibiÃ³ un dato: 03208b2240 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 61175 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 61915: uvm_test_top.e0.a0.d[13] [DRV] Transaccion Recibida, pkt = 51ce3650, term_envio = 13
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 61915 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 62325: uvm_test_top.e0.a0.m[8] [MON] T=62325 Se recibiÃ³ un dato: 0251ce3650 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 62325 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 63015: uvm_test_top.e0.a0.d[13] [DRV] Transaccion Recibida, pkt = 1036fcdf, term_envio = 13
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 63015 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 63455: uvm_test_top.e0.a0.m[4] [MON] T=63455 Se recibiÃ³ un dato: 031036fcdf 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 63455 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 64155: uvm_test_top.e0.a0.d[13] [DRV] Transaccion Recibida, pkt = 407931dc, term_envio = 13
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 64155 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 64705: uvm_test_top.e0.a0.m[7] [MON] T=64705 Se recibiÃ³ un dato: 03407931dc 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 64705 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 65315: uvm_test_top.e0.a0.d[13] [DRV] Transaccion Recibida, pkt = 13cd3e8, term_envio = 13
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 65315 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 65825: uvm_test_top.e0.a0.m[0] [MON] T=65825 Se recibiÃ³ un dato: 00013cd3e8 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 65825 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 66465: uvm_test_top.e0.a0.d[14] [DRV] Transaccion Recibida, pkt = 3008d86d, term_envio = 14
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 66465 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 66645: uvm_test_top.e0.a0.m[6] [MON] T=66645 Se recibiÃ³ un dato: 033008d86d 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 66645 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 67515: uvm_test_top.e0.a0.d[14] [DRV] Transaccion Recibida, pkt = 54cfbb26, term_envio = 14
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 67515 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 67785: uvm_test_top.e0.a0.m[11] [MON] T=67785 Se recibiÃ³ un dato: 0254cfbb26 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 67785 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 68695: uvm_test_top.e0.a0.d[14] [DRV] Transaccion Recibida, pkt = 51156050, term_envio = 14
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 68695 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 69245: uvm_test_top.e0.a0.m[8] [MON] T=69245 Se recibiÃ³ un dato: 0251156050 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 69245 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 69885: uvm_test_top.e0.a0.d[14] [DRV] Transaccion Recibida, pkt = 545e5d6c, term_envio = 14
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 69885 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 70105: uvm_test_top.e0.a0.m[11] [MON] T=70105 Se recibiÃ³ un dato: 02545e5d6c 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 70105 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 71015: uvm_test_top.e0.a0.d[15] [DRV] Transaccion Recibida, pkt = 4bb0e6f, term_envio = 15
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 71015 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 71155: uvm_test_top.e0.a0.m[3] [MON] T=71155 Se recibiÃ³ un dato: 0004bb0e6f 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 71155 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 72065: uvm_test_top.e0.a0.d[15] [DRV] Transaccion Recibida, pkt = 15f81478, term_envio = 15
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 72065 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 72485: uvm_test_top.e0.a0.m[12] [MON] T=72485 Se recibiÃ³ un dato: 0115f81478 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 72485 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 73215: uvm_test_top.e0.a0.d[15] [DRV] Transaccion Recibida, pkt = 4c7efb0, term_envio = 15
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 73215 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 73685: uvm_test_top.e0.a0.m[3] [MON] T=73685 Se recibiÃ³ un dato: 0004c7efb0 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 73685 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Driver.sv(43) @ 74415: uvm_test_top.e0.a0.d[15] [DRV] Transaccion Recibida, pkt = 15495ca9, term_envio = 15
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Driver.sv<sls!&*()_+>line: 43<sls!&*()_+>time: 74415 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO Monitor.sv(37) @ 74885: uvm_test_top.e0.a0.m[12] [MON] T=74885 Se recibiÃ³ un dato: 0115495ca9 
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: Monitor.sv<sls!&*()_+>line: 37<sls!&*()_+>time: 74885 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_objection.svh(1276) @ 75605: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh<sls!&*()_+>line: 431<sls!&*()_+>time: 75605 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_report_catcher.svh(705) @ 75605: reporter [UVM/REPORT/CATCHER] 
+--- UVM Report catcher Summary ---
+
+
+Number of demoted UVM_FATAL reports  :    0
+Number of demoted UVM_ERROR reports  :    0
+Number of demoted UVM_WARNING reports:    0
+Number of caught UVM_FATAL reports   :    0
+Number of caught UVM_ERROR reports   :    0
+Number of caught UVM_WARNING reports :    0
+
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_report_catcher.svh<sls!&*()_+>line: 705<sls!&*()_+>time: 75605 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+<slp!&*()_+>
+UVM_INFO /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_report_server.svh(901) @ 75605: reporter [UVM/REPORT/SERVER] 
+--- UVM Report Summary ---
+
+** Report counts by severity
+UVM_INFO :  134
+UVM_WARNING :    0
+UVM_ERROR :    0
+UVM_FATAL :    0
+** Report counts by id
+[DRV]    65
+[MON]    65
+[RNTST]     1
+[TEST_DONE]     1
+[UVM/RELNOTES]     1
+[UVM/REPORT/CATCHER]     1
+
+<slb!&*()_+>---<sls!&*()_+>loc: -1<sls!&*()_+>src: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh<sls!&*()_+>line: 524<sls!&*()_+>time: 75605 ns<sls!&*()_+>length: 0<sls!&*()_+>...<sls!&*()_+><sle!&*()_+>
+$finish called from file "/mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh", line 527.
+$finish at simulation time                75605
+Simulation complete, time is 75605 ns.
+uvm_root.svh, 527 :     $finish;
+
+ucli% synEnv::hasFataled
+0
+ucli% ucliCore::getToolPID
+2255228
+ucli% save::getUserdefinedProcs
+::stateVerdiChangeCB ::LoadFSDBDumpCmd
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% fsdbDumpflush 
+*Verdi* : Flush all FSDB Files at 75,605 ns.
+
+ucli% senv
+activeDomain: TB
+activeFile: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh
+activeFrame: 2
+activeLine: 527
+activeScope: uvm_pkg.\uvm_root::run_test 
+activeThread: 1821
+endCol: 0
+file: /mnt/vol_NFS_rh003/tools/vcs/R-2020.12-SP2/etc/uvm-1.2/base/uvm_root.svh
+frame: 2
+fsdbFilename: 
+hasTB: 1
+inputFilename: 
+keyFilename: ucli.key
+line: 527
+logFilename: /mnt/vol_NFS_rh003/Est_Verif_II2023/JeremyCordoba_II_2023/Proyecto3/Proyecto_3_Veri/src/verdiLog/sim.log
+macroIndex: -1
+macroOffset: -1
+pid: 2255228
+scope: uvm_pkg.\uvm_root::run_test 
+startCol: 0
+state: stopped
+thread: 1821
+time: 75605
+timePrecision: 1 ns
+vcdFilename: 
+vpdFilename:
+ucli% puts $::ucliCore::cbug_active
+0
+
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% checkpoint -list -all
+There are no checkpoints present.
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% stop
+No stop points are set
+ucli% if {[catch {ucliCore::setFocus tool}]} {}
+
+ucli% finish; quit
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 75605 ns
+CPU Time:      0.780 seconds;       Data structure size:   4.0Mb
+Mon Nov 20 12:46:45 2023
+
+<VERDI_Terminated>
+
