@@ -129,10 +129,6 @@ class secuence_test_agent extends uvm_sequence;
             end
         endcase
 
-
-        
-        
-
   endtask
   
 endclass

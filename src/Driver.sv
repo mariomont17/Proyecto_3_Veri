@@ -41,7 +41,7 @@ class driver extends uvm_driver #(secuence_item_test_agent );
 
   virtual task drive_item(secuence_item_test_agent  m_item);
     @(posedge vif.clk);
-    `uvm_info("DRV", $sformatf("Transaccion Recibida, pkt = %0h, term_envio = %0d, term_destino=%0d", m_item.paquete, m_item.term_envio,m_item.term_recibido ), UVM_LOW)
+    `uvm_info("DRV", $sformatf("Transaccion Recibida, pkt = %0h, modo = %0d, retardo = %0d, term_envio = %0d, term_destino=%0d", m_item.paquete,m_item.mode, m_item.retardo, m_item.term_envio,m_item.term_recibido ), UVM_LOW)
     
     espera = 0;
     
