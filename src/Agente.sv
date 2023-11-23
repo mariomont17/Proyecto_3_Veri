@@ -30,8 +30,7 @@ class agent extends uvm_agent;
     super.connect_phase(phase);
 
     for (int i = 0; i < 16; i++) begin
-      d[i].seq_item_port.connect(
-      s[i].seq_item_export);  //Conecto cada uno con el secuenciador que corresponde 
+      d[i].seq_item_port.connect(s[i].seq_item_export);  //Conecto cada uno con el secuenciador que corresponde 
     end
   endfunction
 
